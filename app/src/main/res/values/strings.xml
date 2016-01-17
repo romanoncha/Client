@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Client</string>
+
+    <string name="tab1">Map</string>
+    <string name="tab2">Stream</string>
+    <string name="tab3">Settings</string>
+
+    <string name="list">List of drones/machines:</string>
+    <string name="ip_address">IP address:</string>
+    <string name="port">Port:</string>
+    <string name="save">Save settings</string>
+
+    <string name="drone_lat">Latitude: </string>
+    <string name="drone_lon">Longitude: </string>
+    <string name="drone_battery">Battery: </string>
+
+    <string name="btn_close">Close</string>
+</resources>
