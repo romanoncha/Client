@@ -43,12 +43,15 @@ public class MainActivity extends Activity implements LocationListener {
     public static double my_lat = 0.0, my_lon = 0.0;
     public static Drawable myCurrentLocationMarker, droneMarker;
     public static Context context;
+    public static Activity _this;
+    public static String token = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         context = getApplicationContext();
+        _this = this;
 
         TabHost tabs = (TabHost) findViewById(android.R.id.tabhost);
 
@@ -116,6 +119,10 @@ public class MainActivity extends Activity implements LocationListener {
 
         DroneAnimation animation = new DroneAnimation();
         animation.execute();
+
+        GetLogin login = new GetLogin();
+        login.execute();
+
     }
 
     @Override
@@ -182,9 +189,9 @@ public class MainActivity extends Activity implements LocationListener {
                     }
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
                         if (index > 0) {
-                            Intent myIntent = new Intent(context, DroneInfoActivity.class);
+                            Intent myIntent = new Intent(_this, DroneInfoActivity.class);
                             myIntent.putExtra("id", index-1); //Optional parameters
-                            context.startActivity(myIntent);
+                            _this.startActivity(myIntent);
                         }
                         return true;
                     }

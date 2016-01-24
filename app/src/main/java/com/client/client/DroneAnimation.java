@@ -37,6 +37,11 @@ public class DroneAnimation extends AsyncTask<Void, Void, Void> {
                 MainActivity.drones.get(i).updateCoords(MainActivity.drones.get(i).getLat()-0.001, MainActivity.drones.get(i).getLon()-0.001);
             }
         }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -62,12 +67,7 @@ public class DroneAnimation extends AsyncTask<Void, Void, Void> {
 
         MainActivity.addMarkersOnMap(items);
 
-        try {
-            TimeUnit.SECONDS.sleep(3);
-            DroneAnimation animation = new DroneAnimation();
-            animation.execute();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        DroneAnimation animation = new DroneAnimation();
+        animation.execute();
     }
 }

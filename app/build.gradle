@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/osmdroid-android-4.2.jar')
     compile files('libs/slf4j-android-1.5.8.jar')
+    compile files('libs/apache-commons-codec-1.4.jar')
 }
