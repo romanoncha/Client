@@ -74,11 +74,8 @@ public class MainActivity extends Activity implements LocationListener {
 
         tabs.setCurrentTab(0);
 
-        // start of drones initialization
+        // drone array initialization
         drones = new ArrayList<>();
-        drones.add(new Drone(16, 47.003, 32.003, 100));
-        drones.add(new Drone(17, 46.997, 31.997, 100));
-        // end of drones initialization
 
         map = (MapView) findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
@@ -87,9 +84,9 @@ public class MainActivity extends Activity implements LocationListener {
         map.setMultiTouchControls(true);
 
         mapController = map.getController();
-        mapController.setZoom(15);
+        mapController.setZoom(11);
         // default point, opens on map when launched app
-        GeoPoint startPoint = new GeoPoint(47.0068, 31.9854);
+        GeoPoint startPoint = new GeoPoint(47.0673, 31.8913);
         mapController.setCenter(startPoint);
 
         myCurrentLocationMarker = this.getResources().getDrawable(R.drawable.my_location);

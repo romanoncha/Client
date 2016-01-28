@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class DroneAnimation extends AsyncTask<Void, Void, Void> {
 
-    static int direction = 1;
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -25,18 +23,6 @@ public class DroneAnimation extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
-        if (direction == 1) {
-            direction = 0;
-            for (int i=0; i<MainActivity.drones.size(); i++) {
-                MainActivity.drones.get(i).updateCoords(MainActivity.drones.get(i).getLat()+0.001, MainActivity.drones.get(i).getLon()+0.001);
-            }
-        }
-        else {
-            direction = 1;
-            for (int i=0; i<MainActivity.drones.size(); i++) {
-                MainActivity.drones.get(i).updateCoords(MainActivity.drones.get(i).getLat()-0.001, MainActivity.drones.get(i).getLon()-0.001);
-            }
-        }
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {

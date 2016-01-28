@@ -21,13 +21,15 @@ public class DroneInfoActivity extends Activity {
         setTitle("Drone ID"+MainActivity.drones.get(id).getId());
 
         //MainActivity.drones
+        TextView drone_name = (TextView) findViewById(R.id.drone_name);
         TextView drone_lat = (TextView) findViewById(R.id.drone_lat);
         TextView drone_lon = (TextView) findViewById(R.id.drone_lon);
         TextView drone_battery = (TextView) findViewById(R.id.drone_battery);
 
-        drone_lat.setText(getResources().getString(R.string.drone_lat)+MainActivity.drones.get(id).getLat());
-        drone_lon.setText(getResources().getString(R.string.drone_lon)+MainActivity.drones.get(id).getLon());
-        drone_battery.setText(getResources().getString(R.string.drone_battery)+MainActivity.drones.get(id).getBattery());
+        drone_name.setText(getResources().getString(R.string.drone_name)+" "+MainActivity.drones.get(id).getName());
+        drone_lat.setText(getResources().getString(R.string.drone_lat)+" "+MainActivity.drones.get(id).getLat());
+        drone_lon.setText(getResources().getString(R.string.drone_lon)+" "+MainActivity.drones.get(id).getLon());
+        drone_battery.setText(getResources().getString(R.string.drone_battery)+" "+MainActivity.drones.get(id).getBattery()+"%");
     }
 
     public void onClose(View v) {

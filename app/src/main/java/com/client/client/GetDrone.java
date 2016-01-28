@@ -3,6 +3,10 @@ package com.client.client;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,9 +16,9 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by Рома on 25.01.2016.
+ * Created by Рома on 28.01.2016.
  */
-public class GetRoute extends AsyncTask<Void, Void, Void> {
+public class GetDrone extends AsyncTask<Void, Void, Void> {
 
     StringBuilder response;
 
@@ -30,7 +34,7 @@ public class GetRoute extends AsyncTask<Void, Void, Void> {
         if (!MainActivity.token.equals(""))
 
             try {
-                String url = "https://api.data-center.in.ua/v1/get/route/";
+                String url = "https://api.data-center.in.ua/v1/get/drone/";
                 URL obj = new URL(url);
                 HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
@@ -40,20 +44,8 @@ public class GetRoute extends AsyncTask<Void, Void, Void> {
                 //add request header
                 con.setRequestProperty("Authorization", "Bearer " + MainActivity.token);
 
-                /*String urlParameters = "{\"latitude\":\"47.0\",\"longitude\":\"32.0\"," +
-                    "\"height\":\"5\", \"direction\":\"N\", \"battery\":\"99\", \"added\":\"2016-01-24 22:00:00\"," +
-                    "\"drone_id\":\"1\"}";*/
-                //String urlParameters = "latitude=47.0&longitude=32.0&height=5&direction=N&battery=99&added=2016-01-24 22:00:00&drone_id=1";
 
-                // Send post request
-                con.setDoOutput(true);
-                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                //wr.writeBytes(urlParameters);
-                wr.flush();
-                wr.close();
-
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(con.getInputStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 String inputLine;
                 response = new StringBuilder();
 
@@ -64,9 +56,32 @@ public class GetRoute extends AsyncTask<Void, Void, Void> {
 
                 //print result
                 System.out.println("response = " + response.toString());
-            } catch (IOException ioex) {
+
+                JSONObject jObj = new JSONObject(response.toString());
+
+                JSONArray drones = jObj.getJSONArray("data");
+
+                MainActivity.drones.clear();
+
+                for (int i=0; i<drones.length(); i++) {
+
+                    JSONObject drone = drones.getJSONObject(i);
+
+                    int id = drone.getInt("id");
+                    String name = drone.getString("name");
+                    double lat = Double.parseDouble(drone.getString("latitude"));
+                    double lon = Double.parseDouble(drone.getString("longitude"));
+                    int battery = drone.getInt("battery");
+
+                    MainActivity.drones.add(new Drone(id, name, lat, lon, battery));
+                }
+            }
+            catch (IOException ioex) {
                 System.out.println(ioex.toString());
 
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
             }
         /*catch (JSONException e) {
             e.printStackTrace();
@@ -78,7 +93,6 @@ public class GetRoute extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
-        Toast.makeText(MainActivity.context, "response: "+response, Toast.LENGTH_LONG).show();
-
     }
+
 }

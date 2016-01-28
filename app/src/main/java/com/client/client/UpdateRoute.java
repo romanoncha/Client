@@ -17,6 +17,9 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class UpdateRoute extends AsyncTask<Void, Void, Void> {
 
+    public static int id = 1;
+    String urlParameters = "";
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -29,19 +32,24 @@ public class UpdateRoute extends AsyncTask<Void, Void, Void> {
         if (!MainActivity.token.equals(""))
 
         try {
-            String url = "https://api.data-center.in.ua/v1/update/route/1";
+            String url = "https://api.data-center.in.ua/v1/update/drone/"+id;
             URL obj = new URL(url);
             HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
-            //add reuqest header
-            con.setRequestMethod("POST");
+            //add request header
+            con.setRequestMethod("PUT");
             //add request header
             con.setRequestProperty("Authorization", "Bearer "+MainActivity.token);
 
             /*String urlParameters = "{\"latitude\":\"47.0\",\"longitude\":\"32.0\"," +
                     "\"height\":\"5\", \"direction\":\"N\", \"battery\":\"99\", \"added\":\"2016-01-24 22:00:00\"," +
                     "\"drone_id\":\"1\"}";*/
-            String urlParameters = "latitude=47.0&longitude=32.0&height=5&direction=N&battery=99&added=2016-01-24 22:00:00&drone_id=1";
+            if (id == 1)
+                urlParameters = "latitude=47.11&longitude=32.12";//&height=3&direction=N&battery=100&added=2016-01-26 22:00:00&drone_id=1";
+            else if (id == 2)
+                urlParameters = "latitude=47.13&longitude=32.18";
+            else if (id == 3)
+                urlParameters = "latitude=47.04&longitude=32.05";
 
             // Send post request
             con.setDoOutput(true);
@@ -76,6 +84,11 @@ public class UpdateRoute extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
+        if (id < 3) {
+            id++;
+            UpdateRoute update_route = new UpdateRoute();
+            update_route.execute();
+        }
 
     }
 }

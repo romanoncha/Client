@@ -10,9 +10,10 @@
     <string name="port">Port:</string>
     <string name="save">Save settings</string>
 
-    <string name="drone_lat">Latitude: </string>
-    <string name="drone_lon">Longitude: </string>
-    <string name="drone_battery">Battery: </string>
+    <string name="drone_name">Name:</string>
+    <string name="drone_lat">Latitude:</string>
+    <string name="drone_lon">Longitude:</string>
+    <string name="drone_battery">Battery:</string>
 
     <string name="btn_close">Close</string>
 </resources>

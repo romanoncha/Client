@@ -60,7 +60,7 @@ public class GetLogin extends AsyncTask<Void, Void, Void> {
             //System.out.println("response = "+response.toString());
 
             JSONObject jObj = new JSONObject(response.toString());
-            MainActivity.token = jObj.getString("token");
+            MainActivity.token = jObj.getString("data");
         }
         catch (IOException ioex) {
             System.out.println(ioex.toString());
@@ -82,12 +82,9 @@ public class GetLogin extends AsyncTask<Void, Void, Void> {
             login.execute();
         }
         else {
-            //UpdateRoute update_route = new UpdateRoute();
-            //update_route.execute();
-            GetRoute get_route = new GetRoute();
-            get_route.execute();
+            GetDrone get_drone = new GetDrone();
+            get_drone.execute();
         }
-
-        Toast.makeText(MainActivity.context, "token: "+MainActivity.token, Toast.LENGTH_LONG).show();
+        System.out.println("token: "+MainActivity.token);
     }
 }
